@@ -1,1 +1,1 @@
-# Pok-dex-JavaScript-App
+# pokedex-javascript-app
