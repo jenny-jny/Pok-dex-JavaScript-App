@@ -1,37 +1,35 @@
-//array of pokemon objects
-let pokemonList = [
-  {
-    name : 'bulbasaur', 
-    height : 7, 
-    type : ['grass', 'poison']
-  }, 
-  {
-    name : 'charmander', 
-    height : 6, 
-    type : ['fire']
-  }, 
-  {
-    name : 'squirtle', 
-    height : 5, 
-    type : ['water']
+//IIFE array of pokemon objects
+let pokemonRepository = (function(){
+  let pokemonList = [
+    {
+      name : 'bulbasaur', 
+      height : 7, 
+      type : ['grass', 'poison']
+    }, 
+    {
+      name : 'charmander', 
+      height : 6, 
+      type : ['fire']
+    }, 
+    {
+      name : 'squirtle', 
+      height : 5, 
+      type : ['water']
+    }
+  ];
+  function add(pokemon){
+    pokemonList.push(pokemon);
   }
-];
+  function getAll(){
+    return pokemonList;
+  }
+  return {
+    add: add,
+    getAll: getAll
+  };
+})()
 
-//using for loop to iterate over array of pokemon objects
-// for(let i = 0; i < pokemonList.length; i++){
-//   //big pokemons have height above 6
-//   if(pokemonList[i].height > 6){
-//     document.write('<p>' + pokemonList[i].name + ' (height: ' + pokemonList[i].height + ') - Wow, that\'s big!' + '</p>');
-//   //average pokemons have height equal to 6
-//   }else if(pokemonList[i].height === 6){
-//     document.write('<p>' + pokemonList[i].name + ' (height: ' + pokemonList[i].height + ') - Wow, that\'s average!' + '</p>');
-//   //small pokemons have height below 6
-//   }else {
-//     document.write('<p>' + pokemonList[i].name + ' (height: ' + pokemonList[i].height + ') - Wow, that\'s small!' + '</p>');
-//   }
-// }
-
-//using foreach loop to iterate over array of pokemon objects
-pokemonList.forEach(function(pokemon){
+//foreach loop to iterate over array of pokemon objects
+pokemonRepository.getAll().forEach(function(pokemon){
   document.write('<p>' + 'Name: ' + pokemon.name + ', ' + 'height: ' + pokemon.height + ', ' + 'type: ' + pokemon.type + '</p>');
 })
