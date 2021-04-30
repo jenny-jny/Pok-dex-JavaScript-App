@@ -30,6 +30,7 @@ let pokemonRepository = (function(){
   function getAll(){
     return pokemonList;
   }
+  //filter by name from array of pokemon objects
   function filterByName(pokemon){
     return pokemonList.filter(pokemon1 => pokemon1.name === pokemon.name); //pokemon1 is an pokemon object in the pokemon array
   }
