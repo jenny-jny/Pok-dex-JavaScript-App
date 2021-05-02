@@ -1,0 +1,12 @@
+.pokemon-list-button{
+  border: none;
+  border-radius: 50%;
+
+  background-color: red;
+  color: white;
+
+  height: 100px;
+  width: 100px;
+
+  margin-bottom: 5px;
+}
