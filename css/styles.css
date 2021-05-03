@@ -10,3 +10,23 @@
 
   margin-bottom: 5px;
 }
+
+.pokemon-list-button:hover, .pokemon-list-button:focus{
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+ul{
+  list-style-type: none;
+}
+
+/* Media queries (responsive design) go at the very end of CSS file */
+@media all and (max-width: 500px){
+
+}
+@media all and (min-width: 500px) and (max-width: 750px){
+
+}
+@media all and (max-width: 750px){
+
+}
