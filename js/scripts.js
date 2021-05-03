@@ -30,33 +30,48 @@ let pokemonRepository = (function(){
   function getAll(){
     return pokemonList;
   }
-  //filter by name from array of pokemon objects
-  function filterByName(pokemon){
-    return pokemonList.filter(pokemon1 => pokemon1.name === pokemon.name); //pokemon1 is an pokemon object in the pokemon array
+  function addListItem(pokemon){
+    let unorderedList = document.querySelector('.pokemon-list');
+  
+    let listItem = document.createElement('li');
+  
+    let button = document.createElement('button');
+    button.innerText = pokemon.name;
+    button.classList.add('pokemon-list-button');
+  
+    listItem.appendChild(button);
+    unorderedList.appendChild(listItem);
   }
+
+  //filter by name from array of pokemon objects
+  // function filterByName(pokemon){
+  //   return pokemonList.filter(pokemon1 => pokemon1.name === pokemon.name); //pokemon1 is an pokemon object in the pokemon array
+  // }
+  
   return {
     add: add,
     getAll: getAll,
-    filterByName: filterByName
+    addListItem: addListItem
+    // filterByName: filterByName
   };
 })()
 
 //foreach loop to iterate over array of pokemon objects
 pokemonRepository.getAll().forEach(function(pokemon){
-  document.write('<p>' + 'Name: ' + pokemon.name + ', ' + 'height: ' + pokemon.height + ', ' + 'type: ' + pokemon.type + '</p>');
+  pokemonRepository.addListItem(pokemon);
 })
 
 //add pokemon to array of pokemon objects
-pokemonRepository.add({name: 'caterpie', height: 3, type: ['bug']});
+// pokemonRepository.add({name: 'caterpie', height: 3, type: ['bug']});
 
 //foreach loop to iterate over array of pokemon objects
-pokemonRepository.getAll().forEach(function(pokemon){
-  document.write('<p>' + 'Name: ' + pokemon.name + ', ' + 'height: ' + pokemon.height + ', ' + 'type: ' + pokemon.type + '</p>');
-})
+// pokemonRepository.getAll().forEach(function(pokemon){
+//   document.write('<p>' + 'Name: ' + pokemon.name + ', ' + 'height: ' + pokemon.height + ', ' + 'type: ' + pokemon.type + '</p>');
+// })
 
 //filter by name from array of pokemon objects
-let pokemonArray = pokemonRepository.filterByName({name: 'squirtle'});
+// let pokemonArray = pokemonRepository.filterByName({name: 'squirtle'});
 
-pokemonArray.forEach(function(pokemon){
-  document.write('<p>' + 'Name: ' + pokemon.name + ', ' + 'height: ' + pokemon.height + ', ' + 'type: ' + pokemon.type + '</p>');
-})
+// pokemonArray.forEach(function(pokemon){
+//   document.write('<p>' + 'Name: ' + pokemon.name + ', ' + 'height: ' + pokemon.height + ', ' + 'type: ' + pokemon.type + '</p>');
+// })
