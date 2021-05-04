@@ -1,13 +1,9 @@
-body{
-  background-color: lightgray;
-}
 .pokemon-list-button{
   border: none;
   border-radius: 50%;
 
-  background-color: white;
-  color: black;
-  background: linear-gradient( red 50%, white 50% ); 
+  background-color: red;
+  color: white;
 
   height: 100px;
   width: 100px;
