@@ -1,6 +1,12 @@
+/* General */
 body{
   background-color: lightgray;
 }
+ul{
+  list-style-type: none;
+}
+
+/* Pokemon list buttons */
 .pokemon-list-button{
   border: none;
   border-radius: 50%;
@@ -18,10 +24,6 @@ body{
 .pokemon-list-button:hover, .pokemon-list-button:focus{
   cursor: pointer;
   opacity: 0.5;
-}
-
-ul{
-  list-style-type: none;
 }
 
 /* Media queries (responsive design) go at the very end of CSS file */
