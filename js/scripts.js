@@ -31,6 +31,16 @@ let pokemonRepository = (function(){
   
     listItem.appendChild(button);
     unorderedList.appendChild(listItem);
+
+    addEventListenerOnClick(button, pokemon);
+  }
+  function showDetails(pokemon){
+    console.log(pokemon.name);
+  }
+  function addEventListenerOnClick(button, pokemon){
+    button.addEventListener('click', function(){
+      showDetails(pokemon);
+    })
   }
   return {
     getAll: getAll,
