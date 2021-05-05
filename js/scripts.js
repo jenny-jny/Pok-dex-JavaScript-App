@@ -32,6 +32,9 @@ let pokemonRepository = (function(){
     listItem.appendChild(button);
     unorderedList.appendChild(listItem);
   }
+  function showDetails(pokemon){
+    console.log(pokemon);
+  }
   return {
     getAll: getAll,
     addListItem: addListItem
