@@ -18,7 +18,7 @@ ul{
   height: 100px;
   width: 100px;
 
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .pokemon-list-button:hover, .pokemon-list-button:focus{
