@@ -55,9 +55,11 @@ let pokemonRepository = (function(){
 
   //promise function: load pokemon name and details URL from pokeapi and call add function (to add pokemon to pokemon list after passing validations)
   function loadList(){
+    showLoadingMessage();
     return fetch(apiURL).then(function (response){
       return response.json();
     }).then(function(json){
+      hideLoadingMessage();
       json.results.forEach(function(item){ //json.results (key)
         let pokemon = {
           name: item.name, //json.results.name (key)
@@ -67,22 +69,51 @@ let pokemonRepository = (function(){
         console.log(pokemon);
       });
     }).catch(function(e){
+      hideLoadingMessage();
       console.error(e);
     })
   }
   //promise function: load pokemon image, height, types from pokemon results detailsUrl 
   function loadDetails(item){
+    showLoadingMessage();
     let url = item.detailsUrl;
     return fetch(url).then(function(response){
       return response.json();
     }).then(function(details){
+      hideLoadingMessage();
       //Now we add the details to the item
       item.imageUrl = details.sprites.front_default; 
       item.height = details.height; 
-      item.types = details.types; 
+      // item.types = details.types;
+      item.types = []; 
+      details.types.forEach(function(type){ //details.types array not interfere with item.types array
+        item.types.push(type);
+      })
     }).catch(function(e){
+      hideLoadingMessage();
       console.error(e);
     });
+  }
+
+  function showLoadingMessage(){
+    let div = document.createElement('div');
+    let p = document.createElement('p');
+    let body = document.querySelector('body');
+    let unorderedList = document.querySelector('.pokemon-list');
+
+    p.innerText = 'Loading...';
+    div.appendChild(p);
+    body.insertBefore(p, unorderedList);
+  }
+
+  function hideLoadingMessage(){
+    //debugger;
+    let p = document.querySelector('p');
+    p.parentElement.removeChild(p);
+    // if(p !== null){ //if add multiple hideLoadingMessage() in then blocks in loadDetails() function and interfere w/ each other (execution)
+    //   p.parentElement.removeChild(p);
+    // }
+    //p && p.parentElement.removeChild(p); //JavaScript syntax: equivalent to if p !== null{ line 109 - 111 } 
   }
 
   return {
@@ -91,7 +122,9 @@ let pokemonRepository = (function(){
     addListItem: addListItem,
     loadList: loadList,
     loadDetails: loadDetails,
-    showDetails: showDetails
+    showDetails: showDetails,
+    showLoadingMessage: showLoadingMessage,
+    hideLoadingMessage: hideLoadingMessage
   };
 })()
 
