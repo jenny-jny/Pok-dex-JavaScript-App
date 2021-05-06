@@ -1,6 +1,7 @@
 //IIFE array of pokemon objects
 let pokemonRepository = (function(){
   let pokemonList = [];
+  let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
   function getAll(){
     return pokemonList;
   }
