@@ -9,7 +9,10 @@ let pokemonRepository = (function(){
     if(typeof pokemon === 'object' && pokemon !== null){
       //validate if the parameters of pokemon has the correct keys
       let pokemonKeys = Object.keys(pokemon);
-      if(pokemonKeys.length === 3 && pokemonKeys[0] === 'name' && pokemonKeys[1] === 'height' && pokemonKeys[2] === 'type'){     
+      // if(pokemonKeys.length === 3 && pokemonKeys[0] === 'name' && pokemonKeys[1] === 'height' && pokemonKeys[2] === 'type'){     
+      //   pokemonList.push(pokemon);
+      // }
+      if(pokemonKeys.length === 2 && pokemonKeys[0] === 'name' && pokemonKeys[1] === 'detailsUrl'){     
         pokemonList.push(pokemon);
       }
     }
