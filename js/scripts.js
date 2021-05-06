@@ -1,22 +1,6 @@
 //IIFE array of pokemon objects
 let pokemonRepository = (function(){
-  let pokemonList = [
-    {
-      name : 'bulbasaur', 
-      height : 7, 
-      type : ['grass', 'poison']
-    }, 
-    {
-      name : 'charmander', 
-      height : 6, 
-      type : ['fire']
-    }, 
-    {
-      name : 'squirtle', 
-      height : 5, 
-      type : ['water']
-    }
-  ];
+  let pokemonList = [];
   function getAll(){
     return pokemonList;
   }
