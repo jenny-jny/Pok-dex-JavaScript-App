@@ -48,15 +48,15 @@ let pokemonRepository = (function(){
     })
   }
 
-  //load pokemon name and details URL from pokeapi and call add function (to add pokemon to pokemon list after passing validations)
+  //promise function: load pokemon name and details URL from pokeapi and call add function (to add pokemon to pokemon list after passing validations)
   function loadList(){
     return fetch(apiURL).then(function (response){
       return response.json();
     }).then(function(json){
-      json.results.forEach(function(item){
+      json.results.forEach(function(item){ //json.results (key)
         let pokemon = {
-          name: item.name,
-          detailsUrl: item.url
+          name: item.name, //json.results.name (key)
+          detailsUrl: item.url //json.results.url (key)
         };
         add(pokemon);
       });
