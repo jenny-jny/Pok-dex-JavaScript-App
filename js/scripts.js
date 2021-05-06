@@ -39,9 +39,11 @@ let pokemonRepository = (function(){
     addEventListenerOnClick(button, pokemon);
   }
 
-  //print pokemon name to console
+  //call load details function on pokemon and print pokemon name to console
   function showDetails(pokemon){
-    console.log(pokemon.name);
+    loadDetails(pokemon).then(function(){ //promise function
+      console.log(pokemon);
+    });
   }
 
   //add event listener (to print pokemon  name to console) on clicking the button and print pokemon name to console
@@ -62,6 +64,7 @@ let pokemonRepository = (function(){
           detailsUrl: item.url //json.results.url (key)
         };
         add(pokemon);
+        console.log(pokemon);
       });
     }).catch(function(e){
       console.error(e);
@@ -74,9 +77,9 @@ let pokemonRepository = (function(){
       return response.json();
     }).then(function(details){
       //Now we add the details to the item
-      item.imageUrl = details.sprites.front_default;
-      item.height = details.height;
-      item.types = details.types;
+      item.imageUrl = details.sprites.front_default; 
+      item.height = details.height; 
+      item.types = details.types; 
     }).catch(function(e){
       console.error(e);
     });
@@ -87,12 +90,10 @@ let pokemonRepository = (function(){
     getAll: getAll,
     addListItem: addListItem,
     loadList: loadList,
-    loadDetails: loadDetails
+    loadDetails: loadDetails,
+    showDetails: showDetails
   };
 })()
-
-//add pokemon to array of pokemon objects
-// pokemonRepository.add({name: 'caterpie', height: 3, type: ['bug']});
 
 //load pokemons 
 pokemonRepository.loadList().then(function(){
