@@ -107,7 +107,6 @@ let pokemonRepository = (function(){
   }
 
   function hideLoadingMessage(){
-    //debugger;
     let p = document.querySelector('p');
     p.parentElement.removeChild(p);
     // if(p !== null){ //if add multiple hideLoadingMessage() in then blocks in loadDetails() function and interfere w/ each other (execution)
