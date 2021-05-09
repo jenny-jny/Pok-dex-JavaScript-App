@@ -42,7 +42,6 @@ let pokemonRepository = (function(){
   //call load details function on pokemon and print pokemon name to console
   function showDetails(pokemon){
     loadDetails(pokemon).then(function(){ //promise function
-      console.log(pokemon);
     });
   }
 
