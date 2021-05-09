@@ -40,10 +40,10 @@ let pokemonRepository = (function(){
   }
 
   //call load details function on pokemon and print pokemon name to console
-  function showDetails(pokemon){
+  (function showDetails(pokemon){
     loadDetails(pokemon).then(function(){ //promise function
     });
-  }
+  })();
 
   //add event listener (to print pokemon  name to console) on clicking the button and print pokemon name to console
   function addEventListenerOnClick(button, pokemon){
