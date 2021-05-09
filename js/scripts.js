@@ -66,7 +66,6 @@ let pokemonRepository = (function(){
           detailsUrl: item.url //json.results.url (key)
         };
         add(pokemon);
-        console.log(pokemon);
       });
     }).catch(function(e){
       hideLoadingMessage();
