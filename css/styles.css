@@ -7,6 +7,11 @@ ul{
   list-style-type: none;
 }
 
+/* Pokemon list */
+.pokemon-list{
+  margin-top: 74px;
+}
+
 /* Pokemon list buttons */
 .pokemon-list-button{
   border: none;
