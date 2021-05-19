@@ -2,7 +2,6 @@
 let pokemonRepository = (function(){
   let pokemonList = [];
   let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
-  let modalContainer = document.querySelector('.modal-container');
 
   function showLoadingMessage(){
     let div = document.createElement('div');
@@ -30,10 +29,10 @@ let pokemonRepository = (function(){
       return response.json();
     }).then(function(json){
       hideLoadingMessage();
-      json.results.forEach(function(item){ //json.results (key)
+      json.results.forEach(function(pokemonItem){ //json.results (key)
         let pokemon = {
-          name: item.name, //json.results.name (key)
-          detailsUrl: item.url //json.results.url (key)
+          name: pokemonItem.name, //json.results.name (key)
+          detailsUrl: pokemonItem.url //json.results.url (key)
         };
         add(pokemon);
       });
@@ -71,6 +70,8 @@ let pokemonRepository = (function(){
     button.innerText = pokemon.name;
     button.classList.add('pokemon-list-button');
     $(button).addClass('btn');
+    $(button).attr('data-toggle', 'modal');
+    $(button).attr('data-target', '#pokemonModal');
   
     listItem.appendChild(button);
     unorderedList.appendChild(listItem);
@@ -88,25 +89,31 @@ let pokemonRepository = (function(){
   //call load details function on pokemon, show modal with pokemon name, height, and image, and print pokemon details to console
   function showDetails(pokemon){
     loadDetails(pokemon).then(function(){ //promise function
-      showModal(pokemon.name, pokemon.height, pokemon.imageUrl); 
+      showModal(pokemon); 
       console.log(pokemon);
     });
   }
       
   //promise function: load pokemon image, height, types from pokemon results detailsUrl 
-  function loadDetails(item){
+  function loadDetails(pokemon){
     showLoadingMessage();
-    let url = item.detailsUrl;
+    let url = pokemon.detailsUrl;
     return fetch(url).then(function(response){
       return response.json();
     }).then(function(details){
       hideLoadingMessage();
-      //Now we add the details to the item
-      item.imageUrl = details.sprites.front_default; 
-      item.height = details.height; 
-      item.types = []; 
-      details.types.forEach(function(type){ //details.types array not interfere with item.types array
-        item.types.push(type);
+      //Now we add the details to the pokemon
+      pokemon.frontImageUrl = details.sprites.front_default; 
+      pokemon.backImageUrl = details.sprites.back_default; 
+      pokemon.height = details.height; 
+      pokemon.weight = details.weight; 
+      pokemon.types = []; 
+      details.types.forEach(function(types){ //details.types array not interfere with pokemon.types array
+        pokemon.types.push(types.type.name);
+      })
+      pokemon.abilities = []; 
+      details.abilities.forEach(function(abilities){ //details.types array not interfere with pokemon.abilities array
+        pokemon.abilities.push(abilities.ability.name);
       })
     }).catch(function(e){
       hideLoadingMessage();
@@ -114,58 +121,33 @@ let pokemonRepository = (function(){
     });
   }
 
-  //show modal with pokemon name, height, and image
-  function showModal(name, height, img){
-    modalContainer.classList.add('is-visible');
+  function showModal(pokemon){
+    let modalTitle = $('.modal-title');
+    let modalBody = $('.modal-body');
 
-    //clear all existing modal content
-    modalContainer.innerHTML = '';
+    //clear existing content of modal 
+    modalTitle.empty();
+    modalBody.empty();
 
-    let modal = document.createElement('div');
-    modal.classList.add('modal');
+    //create modal elements using jQuery
+    let pokemonName = $('<h1>' + pokemon.name + '</h1>');
+    let pokemonFrontImage = $('<img class="modal-img" style="width:30%">');
+    pokemonFrontImage.attr('src', pokemon.frontImageUrl);
+    let pokemonBackImage = $('<img class="modal-img" style="width:30%">');
+    pokemonBackImage.attr('src', pokemon.backImageUrl);
+    let pokemonHeight = $('<p>' + 'Height: ' + pokemon.height + '</p>');
+    let pokemonWeight = $('<p>' + 'Weight: ' + pokemon.weight + '</p>');
+    let pokemonTypes = $('<p>' + 'Types: ' + pokemon.types + '</p>');
+    let pokemonAbilities = $('<p>' + 'Abilities: ' + pokemon.abilities + '</p>');
 
-    //add the new modal content
-    let closeButtonElement = document.createElement('crossOutButton');
-    closeButtonElement.classList.add('modal-close');
-    closeButtonElement.appendChild(document.createTextNode('X'));
-    closeButtonElement.addEventListener('click', hideModal);
-
-    let nameElement = document.createElement('h1');
-    nameElement.innerText = name;
-
-    let heightElement = document.createElement('p');
-    heightElement.innerText = height;
-
-    let imgContainer = document.createElement('div');
-    let imgElement = document.createElement('img');
-    imgElement.src = img;
-    imgContainer.appendChild(imgElement);
-
-    modal.appendChild(closeButtonElement);
-    modal.appendChild(nameElement);
-    modal.appendChild(heightElement);
-    modal.appendChild(imgContainer);
-    modalContainer.appendChild(modal);
+    modalTitle.append(pokemonName);
+    modalBody.append(pokemonFrontImage);
+    modalBody.append(pokemonBackImage);
+    modalBody.append(pokemonHeight);
+    modalBody.append(pokemonWeight);
+    modalBody.append(pokemonTypes);
+    modalBody.append(pokemonAbilities);
   }
-
-  function hideModal(){
-    modalContainer.classList.remove('is-visible');
-  }
-
-  //hide modal upon pressing esc
-  window.addEventListener('keydown', (e) => {
-    if(e.key === 'Escape' && modalContainer.classList.contains('is-visible')){
-      hideModal();
-    }
-  });
-
-  //hide modal upon clicking the modal overlay
-  modalContainer.addEventListener('click', (e) => {
-    let target = e.target;
-    if(target === modalContainer){
-      hideModal();
-    }
-  });
 
   return {
     add: add,
@@ -177,7 +159,6 @@ let pokemonRepository = (function(){
     showLoadingMessage: showLoadingMessage,
     hideLoadingMessage: hideLoadingMessage,
     showModal: showModal,
-    hideModal: hideModal
   };
 })();
 
