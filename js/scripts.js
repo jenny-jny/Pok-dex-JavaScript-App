@@ -70,6 +70,7 @@ let pokemonRepository = (function(){
     let button = document.createElement('button');
     button.innerText = pokemon.name;
     button.classList.add('pokemon-list-button');
+    $(button).addClass('btn');
   
     listItem.appendChild(button);
     unorderedList.appendChild(listItem);
