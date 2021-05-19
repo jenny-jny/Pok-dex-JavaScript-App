@@ -149,6 +149,11 @@ let pokemonRepository = (function(){
     modalBody.append(pokemonAbilities);
   }
 
+  //filter by name from array of pokemon objects
+  function filterByName(pokemon){
+    return pokemonList.filter(pokemon1 => pokemon1.name === pokemon.name); //pokemon1 is an pokemon object in the pokemon array
+  }
+
   return {
     add: add,
     getAll: getAll,
@@ -159,6 +164,7 @@ let pokemonRepository = (function(){
     showLoadingMessage: showLoadingMessage,
     hideLoadingMessage: hideLoadingMessage,
     showModal: showModal,
+    filterByName: filterByName
   };
 })();
 
@@ -169,4 +175,11 @@ pokemonRepository.loadList().then(function(){
   pokemonRepository.getAll().forEach(function(pokemon){
     pokemonRepository.addListItem(pokemon);
   });
+});
+
+//filter by name from array of pokemon objects
+let pokemonArray = pokemonRepository.filterByName({name: 'squirtle'});
+
+pokemonArray.forEach(function(pokemon){
+  console.log('<p>' + 'Name: ' + pokemon.name + ', ' + 'height: ' + pokemon.height + ', ' + 'type: ' + pokemon.type + '</p>');
 });
