@@ -20,15 +20,22 @@ ul{
   background-color: white;
   background: linear-gradient( red 50%, white 50% ); 
   color: black;
+  font-weight: bold;
+  text-transform: uppercase;
 
-  height: 100px;
-  width: 100px;
+  height: 135px;
+  width: 135px;
 
   margin-bottom: 10px;
 }
 .pokemon-list-button:hover, .pokemon-list-button:focus{
   cursor: pointer;
   opacity: 0.5;
+}
+
+/* Modal */
+.modal-title{
+  text-transform: uppercase;
 }
 
 /* Loading message */
