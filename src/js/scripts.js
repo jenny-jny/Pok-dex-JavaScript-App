@@ -4,22 +4,17 @@ let pokemonRepository = (function(){
   let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
   function showLoadingMessage(){
-    let div = document.createElement('div');
+    let div = $('<div class="loading-message-container"></div>');
+    let p = $('<p>Loading...</p>');
+    let unorderedList = $('.pokemon-list');
 
-    let p = document.createElement('p');
-    p.classList.add('loading-message')
-    p.innerText = 'Loading...';
-
-    let body = document.querySelector('body');
-    let unorderedList = document.querySelector('.pokemon-list');
-
-    div.appendChild(p);
-    body.insertBefore(div, unorderedList);
+    $(div).append(p).insertBefore('.modal');
+    $(unorderedList).insertBefore('.modal');
   }
 
   function hideLoadingMessage(){
-    let p = document.querySelector('.loading-message');
-    p.parentElement.removeChild(p);
+    let p = $('.loading-message-container');
+    $(p).remove();
   }
 
   //promise function: show loading message, hide loading message, load pokemon name and details URL from pokeapi and call add function (to add pokemon to pokemon list after passing validations)
@@ -60,28 +55,24 @@ let pokemonRepository = (function(){
   }
 
   //add buttons to list items then add list items to unordered pokemon list; call event listener
-  function addListItem(pokemon){
-    let unorderedList = document.querySelector('.pokemon-list');
-  
-    let listItem = document.createElement('li');
-    $(listItem).addClass('list-group-item');
+  function addListItem(pokemon, div){
+    let listItem = $('<li>');
+    $(listItem).addClass('list-group-item col');
 
-    let button = document.createElement('button');
-    button.innerText = pokemon.name;
-    button.classList.add('pokemon-list-button');
-    $(button).addClass('btn');
+    let button = $('<button>' + pokemon.name + '</button>');
+    $(button).addClass('pokemon-list-button btn');
     $(button).attr('data-toggle', 'modal');
     $(button).attr('data-target', '#pokemonModal');
   
-    listItem.appendChild(button);
-    unorderedList.appendChild(listItem);
+    $(listItem).append(button);
+    $(div).append(listItem);
 
     addEventListenerOnClick(button, pokemon);
   }
 
   //add event listener on clicking the button to show details of pokemon
   function addEventListenerOnClick(button, pokemon){
-    button.addEventListener('click', function(){
+    $(button).on('click', function(){
       showDetails(pokemon);
     })
   }
@@ -172,8 +163,15 @@ let pokemonRepository = (function(){
 pokemonRepository.loadList().then(function(){
   //Now the data is loaded!
   //foreach loop to iterate over array of pokemon objects and add pokemon to pokemon list item
-  pokemonRepository.getAll().forEach(function(pokemon){
-    pokemonRepository.addListItem(pokemon);
+  let div = null;
+  pokemonRepository.getAll().forEach(function(pokemon, index){
+    let container = $('.pokemon-list');
+    let remainder = index % 5;
+    if(remainder === 0){
+      div = $('<div class="row"></div>');
+      container.append(div);
+    }
+    pokemonRepository.addListItem(pokemon, div);
   });
 });
 
