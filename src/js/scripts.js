@@ -58,7 +58,7 @@ let pokemonRepository = (function(){
   //add buttons to list items then add list items to unordered pokemon list; call event listener
   function addListItem(pokemon, div){
     let listItem = $('<li>');
-    $(listItem).addClass('list-group-item col');
+    $(listItem).addClass('list-group-item col-lg-2 col-md-4 col-sm-12');
 
     let button = $('<button>' + pokemon.name + '</button>');
     $(button).addClass('pokemon-list-button btn');
@@ -167,8 +167,7 @@ pokemonRepository.loadList().then(function(){
   let div = null;
   pokemonRepository.getAll().forEach(function(pokemon, index){
     let container = $('.pokemon-list');
-    let remainder = index % 5;
-    if(remainder === 0){
+    if(index === 0){
       div = $('<div class="row"></div>');
       container.append(div);
     }
