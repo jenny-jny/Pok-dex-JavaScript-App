@@ -1,4 +1,3 @@
-/*global $*/
 //IIFE array of pokemon objects
 let pokemonRepository = (function(){
   let pokemonList = [];
