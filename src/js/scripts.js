@@ -174,10 +174,3 @@ pokemonRepository.loadList().then(function(){
     pokemonRepository.addListItem(pokemon, div);
   });
 });
-
-//filter by name from array of pokemon objects
-let pokemonArray = pokemonRepository.filterByName({name: 'squirtle'});
-
-pokemonArray.forEach(function(pokemon){
-  console.log('<p>' + 'Name: ' + pokemon.name + ', ' + 'height: ' + pokemon.height + ', ' + 'type: ' + pokemon.type + '</p>');
-});
