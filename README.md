@@ -16,4 +16,4 @@ A small pokédex web application with HTML, CSS, and JavaScript that loads poké
 * External pokémon API: https://pokeapi.co/api/v2/pokemon/?limit=150
 
 ## Project showcase
-https://jenny-jny.github.io/pokedex-javascript-app/
+* https://jenny-jny.github.io/pokedex-javascript-app/
