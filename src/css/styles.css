@@ -18,7 +18,7 @@ ul{
   border-radius: 50%;
 
   background-color: white;
-  background: linear-gradient( red 50%, white 50% ); 
+  background: linear-gradient(red 50%, white 50%);
   color: black;
   font-weight: bold;
   text-transform: uppercase;
@@ -41,15 +41,4 @@ ul{
 /* Loading message */
 .loading-message{
   margin-top: 74px;
-}
-
-/* Media queries (responsive design) go at the very end of CSS file */
-@media all and (max-width: 500px){
-
-}
-@media all and (min-width: 500px) and (max-width: 750px){
-
-}
-@media all and (max-width: 750px){
-
 }
