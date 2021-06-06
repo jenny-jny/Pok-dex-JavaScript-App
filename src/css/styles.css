@@ -37,6 +37,9 @@ ul{
 .modal-title{
   text-transform: uppercase;
 }
+.modal-image{
+  width: 30%;
+}
 
 /* Loading message */
 .loading-message{
