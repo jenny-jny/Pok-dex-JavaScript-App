@@ -185,7 +185,7 @@ pokemonRepository.loadList().then(function(){
     let container = document.querySelector('.pokemon-list');
     if(index === 0){
       div.classList.add('row');
-      container.append(div);
+      container.appendChild(div);
     }
     pokemonRepository.addListItem(pokemon, div);
   });
