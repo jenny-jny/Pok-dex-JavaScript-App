@@ -1,25 +1,25 @@
 //IIFE array of pokemon objects
-let pokemonRepository = (function(){
-  let pokemonList = [];
-  let apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+const pokemonRepository = (function(){
+  const pokemonList = [];
+  const apiURL = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
 
   function showLoadingMessage(){
-    let div = document.createElement('div');
+    const div = document.createElement('div');
     div.classList.add('loading-message-container');
 
-    let p = document.createElement('p');
+    const p = document.createElement('p');
     p.classList.add('loading-message');
     p.innerText = 'Loading...';
 
-    let main = document.querySelector('main');
-    let unorderedList = document.querySelector('.pokemon-list');
+    const main = document.querySelector('main');
+    const unorderedList = document.querySelector('.pokemon-list');
 
     div.appendChild(p);
     main.insertBefore(div, unorderedList);
   }
 
   function hideLoadingMessage(){
-    let p = document.querySelector('.loading-message');
+    const p = document.querySelector('.loading-message');
     p.parentElement.removeChild(p);
   }
 
@@ -31,7 +31,7 @@ let pokemonRepository = (function(){
     }).then(function(json){
       hideLoadingMessage();
       json.results.forEach(function(pokemonItem){ //json.results (key)
-        let pokemon = {
+        const pokemon = {
           name: pokemonItem.name, //json.results.name (key)
           detailsUrl: pokemonItem.url //json.results.url (key)
         };
@@ -48,7 +48,7 @@ let pokemonRepository = (function(){
     //validate if the pokemon is an object
     if(typeof pokemon === 'object' && pokemon !== null){
       //validate if the parameters of pokemon has the correct keys
-      let pokemonKeys = Object.keys(pokemon);
+      const pokemonKeys = Object.keys(pokemon);
       if(pokemonKeys.length === 2 && pokemonKeys[0] === 'name' && pokemonKeys[1] === 'detailsUrl'){     
         pokemonList.push(pokemon);
       }
@@ -62,10 +62,10 @@ let pokemonRepository = (function(){
 
   //add buttons to list items then add list items to unordered pokemon list; call event listener
   function addListItem(pokemon, div){
-    let listItem = document.createElement('li');
+    const listItem = document.createElement('li');
     listItem.classList.add('list-group-item', 'col-lg-2', 'col-md-4', 'col-sm-12');
 
-    let button = document.createElement('button');
+    const button = document.createElement('button');
     button.innerText = pokemon.name;
     button.classList.add('pokemon-list-button', 'btn');
     button.setAttribute('data-toggle', 'modal');
@@ -95,7 +95,7 @@ let pokemonRepository = (function(){
   //promise function: load pokemon image, height, types from pokemon results detailsUrl 
   function loadDetails(pokemon){
     showLoadingMessage();
-    let url = pokemon.detailsUrl;
+    const url = pokemon.detailsUrl;
     return fetch(url).then(function(response){
       return response.json();
     }).then(function(details){
@@ -120,32 +120,29 @@ let pokemonRepository = (function(){
   }
 
   function showModal(pokemon){
-    // let modalTitle = $('.modal-title');
-    // let modalBody = $('.modal-body');
-
-    let modalTitle = document.querySelector('.modal-title');
-    let modalBody = document.querySelector('.modal-body');
+    const modalTitle = document.querySelector('.modal-title');
+    const modalBody = document.querySelector('.modal-body');
 
     //clear existing content of modal 
     modalTitle.innerText = '';
     modalBody.innerText = '';
 
     //create modal elements
-    let pokemonName = document.createElement('h1');
+    const pokemonName = document.createElement('h1');
     pokemonName.innerText = pokemon.name;
-    let pokemonFrontImage = document.createElement('img');
+    const pokemonFrontImage = document.createElement('img');
     pokemonFrontImage.classList.add('modal-img');
     pokemonFrontImage.setAttribute('src', pokemon.frontImageUrl);
-    let pokemonBackImage = document.createElement('img');
+    const pokemonBackImage = document.createElement('img');
     pokemonBackImage.classList.add('modal-img');
     pokemonBackImage.setAttribute('src', pokemon.backImageUrl);
-    let pokemonHeight = document.createElement('p');
+    const pokemonHeight = document.createElement('p');
     pokemonHeight.innerText = 'Height: ' + pokemon.height;
-    let pokemonWeight = document.createElement('p');
+    const pokemonWeight = document.createElement('p');
     pokemonWeight.innerText = 'Weight: ' + pokemon.weight;
-    let pokemonTypes = document.createElement('p');
+    const pokemonTypes = document.createElement('p');
     pokemonTypes.innerText = 'Types: ' + pokemon.types;
-    let pokemonAbilities = document.createElement('p');
+    const pokemonAbilities = document.createElement('p');
     pokemonAbilities.innerText = 'Abilities: ' + pokemon.abilities;
 
     modalTitle.appendChild(pokemonName);
@@ -180,9 +177,9 @@ let pokemonRepository = (function(){
 pokemonRepository.loadList().then(function(){
   //Now the data is loaded!
   //foreach loop to iterate over array of pokemon objects and add pokemon to pokemon list item
-  let div = document.createElement('div'); //???????????????????????????????????????????????????????????????????????????????
+  const div = document.createElement('div'); //???????????????????????????????????????????????????????????????????????????????
   pokemonRepository.getAll().forEach(function(pokemon, index){
-    let container = document.querySelector('.pokemon-list');
+    const container = document.querySelector('.pokemon-list');
     if(index === 0){
       div.classList.add('row');
       container.appendChild(div);
